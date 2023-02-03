@@ -3,22 +3,21 @@ package JukeBox;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Scanner;
-
+//For doing various time calculations
 public class TimeOperations {
     Scanner sc=new Scanner(System.in);
 
     public String timer(long time){
-        long elapsedTime = time/ 1000;
-        int minutes = (int) (elapsedTime / 60000);
-        int seconds = (int) ((elapsedTime % 60000) / 1000);
+        long newTime = time/ 1000;
+        int minutes = (int) (newTime / 60000);
+        int seconds = (int) ((newTime % 60000) / 1000);
         return minutes+":"+String.format("%02d", seconds);
     }
     public String timer1(long time){
-        long elapsedTime = time/ 1000;
-        int minutes = (int) (elapsedTime / 60);
-        int seconds = (int) (elapsedTime % 60);
+        long newTime = time/ 1000;
+        int minutes = (int) (newTime / 60);
+        int seconds = (int) (newTime % 60);
         return minutes+":"+String.format("%02d", seconds);
     }
     public long jump(){
@@ -37,9 +36,6 @@ public class TimeOperations {
         clip.open(audioInputStream);
         long frameSize=clip.getFrameLength();
         frameSizeInMilliseconds= (long)((frameSize*1000)/clip.getFormat().getSampleRate());
-        System.out.println("Frame length "+clip.getFrameLength());
-        System.out.println("This is sample rate"+clip.getFormat().getSampleRate());
-        System.out.println("Song inserted");
     } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
         throw new RuntimeException(e);
     }

@@ -1,7 +1,5 @@
 package JukeBox;
 
-import java.security.PrivateKey;
-
 public class Songs {
     private int languageId;
     private int albumId;
@@ -10,10 +8,10 @@ public class Songs {
     private String SongName;
     private String duration;
     private String path;
-    public Songs( int languageId, int albumId, int artistid, int genreId, String SongName, String path, String duration) {
+    public Songs( int languageId, int albumId, int artistId, int genreId, String SongName, String path, String duration) {
         this.languageId=languageId;
         this.albumId=albumId;
-        this.artistid = artistid;
+        this.artistid = artistId;
         this.genreId = genreId;
         this.SongName = SongName;
         this.path=path;
@@ -23,7 +21,6 @@ public class Songs {
     public int getLanguageId() {
         return languageId;
     }
-
 
     public void setLanguageId(int languageId) {
         this.languageId = languageId;
@@ -75,18 +72,5 @@ public class Songs {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    @Override
-    public String toString() {
-        return "Songs{" +
-                "languageId=" + languageId +
-                ", albumId=" + albumId +
-                ", artistid=" + artistid +
-                ", genreId=" + genreId +
-                ", SongName='" + SongName + '\'' +
-                ", duration='" + duration + '\'' +
-                ", path='" + path + '\'' +
-                '}';
     }
 }

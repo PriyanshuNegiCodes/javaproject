@@ -1,4 +1,4 @@
-package JukeBox;
+package JukeBox.Database;
 
 public class Table {
     private int id;

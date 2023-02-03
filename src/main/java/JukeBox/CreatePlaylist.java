@@ -32,7 +32,7 @@ public class CreatePlaylist extends Connector {
     }
 
     //   insert data into the play list
-    public void InsertSongInPlaylist(int playlistId, int userId) {
+    public void InsertSongInPlaylist(int playlistId) {
         int songID=0;
         boolean flag;
         int input;
@@ -51,32 +51,13 @@ public class CreatePlaylist extends Connector {
             }
             try {
                 st = getConnection().createStatement();
-                resultSet = st.executeQuery("SELECT LanguageId, AlbumId, " +
-                        "ArtistId, GenreId FROM song WHERE Sno = " + songID + ";");
-                while (resultSet.next()) {
-                    insertIntoPlaylistTable(playlistId, userId, songID );
-                }
-
-            } catch (SQLException e) {
+                st.executeUpdate("INSERT INTO PLAYLIST(PlaylistId, SongID) " +
+                        "VALUES("+playlistId+", "+songID+");");
+                } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
             System.out.println("Enter 1 if you want to insert other song else 0");
             input = sc.nextInt();
         } while (input == 1);
-    }
-    public void insertIntoPlaylistTable( int playlistId, int userId, int songID){
-
-        try {
-            st = getConnection().createStatement();
-            ResultSet resultSet = st.executeQuery("SELECT LanguageId, AlbumId, " +
-                    "ArtistId, GenreId FROM song WHERE Sno = " + songID + ";");
-            if (resultSet.next()) {
-                st.executeUpdate("INSERT INTO Playlist (PlaylistId, PlaylistName, UserId, LanguageId, AlbumId, ArtistId, GenreId, SongId) \n" +
-                        "VALUES (" + playlistId + ", '" + playlistUserLogImp.getPlaylistName(playlistId) + "', " + userId + ", " + resultSet.getInt(1) + ", " +
-                        "" + resultSet.getInt(2) + ", " + resultSet.getInt(3) + ", " + resultSet.getInt(4) + ", " + songID + ");");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

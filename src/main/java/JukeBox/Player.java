@@ -58,6 +58,7 @@ public class Player extends TimeOperations {
                         }
                         break;
                         case "U":
+
                             clip.stop();
                             clip.close();
                             if(list.size()==1&&index==0){
@@ -67,6 +68,9 @@ public class Player extends TimeOperations {
                                 playSong(list);
                             } else if (index > 0) {
                                 index--;
+                                clip.stop();
+                                clip.close();
+//                                clip.open(audioInputStream);
                                 playSong(list);
                             }
                             break;
@@ -79,8 +83,8 @@ public class Player extends TimeOperations {
                         case "X": {
                             clip.stop();
                             clip.close();
-                            return "Player Closed Thanks for Playing";
                         }
+                        break;
                         default: {
                             if (input.equals("F")) {
                                 break;
@@ -88,6 +92,9 @@ public class Player extends TimeOperations {
                                 System.out.println("Invalid Response");
                             }
                         }
+                    }
+                    if(input.equals("X")){
+                        return "Player Closed Thanks for Playing";
                     }
                 }
                 clip.stop();

@@ -63,25 +63,20 @@ public class PlayerInput extends CreatePlaylist{
             System.out.println("SongId  LanguageName ArtistName GenreName AlbumName SongName");
             System.out.println("+--------------------------------------------------------------------------------------------+");
             st=super.getConnection().createStatement();
-            resultSet=st.executeQuery("SELECT song.Sno, Playlist.PlaylistId, Playlist.PlaylistName, " +
-                    "language.LanguageName, Album.AlbumName, Artist.ArtistName, Genre.GenreName," +
-                    " song.SongName, song.Path, song.Duration FROM song, Playlist, language, Album, " +
-                    "Artist, Genre WHERE Playlist.PlaylistId ="+playlistId+" AND song.LanguageId = language.LanguageId AND" +
-                    " song.AlbumId = Album.AlbumId AND song.ArtistId = Artist.ArtistId AND song.GenreId = Genre.GenreId " +
-                    "AND Playlist.LanguageID = language.LanguageId AND Playlist.AlbumID = Album.AlbumId " +
-                    "AND Playlist.ArtistID = Artist.ArtistId AND Playlist.GenreID = Genre.GenreId " +
-                    "AND Playlist.Songid = song.Sno;");
+            resultSet=st.executeQuery("SELECT Song.Sno, Language.LanguageName, Artist.ArtistName, Genre.GenreName, " +
+                    "Album.AlbumName, Song.SongName, Song.Path, Song.Duration FROM Song, Language, Album, Artist, Genre, Playlist\n" +
+                    "WHERE Song.LanguageID = Language.LanguageID AND Song.AlbumID = Album.AlbumID AND " +
+                    "Song.ArtistID = Artist.ArtistID AND Song.GenreID = Genre.GenreID AND Song.Sno = Playlist.SongId " +
+                    "AND Playlist.PlaylistId = "+playlistId+";");
             while(resultSet.next()){
-                Music music=new Music(resultSet.getInt(1), resultSet.getString(4),
-                        resultSet.getString(6), resultSet.getString(7),
-                        resultSet.getString(5), resultSet.getString(8),
-                        resultSet.getString(9),resultSet.getString(10));
-                System.out.println(resultSet.getInt(1)+"     "+resultSet.getString(4)+"     "+
-                        resultSet.getString(6)+"      "+ resultSet.getString(7)+"      "+
-                        resultSet.getString(5)+"      "+resultSet.getString(8));
+                Music music=new Music(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4),
+                        resultSet.getString(5), resultSet.getString(6),
+                        resultSet.getString(7),resultSet.getString(8));
+                System.out.println(resultSet.getInt(1)+"     "+resultSet.getString(2)+"     "+
+                        resultSet.getString(3)+"      "+ resultSet.getString(4)+"      "+
+                        resultSet.getString(5)+"      "+resultSet.getString(6));
                 System.out.println("+--------------------------------------------------------------------------------------------+");
-
-
                 listMusic.add(music);
             }
         } catch (SQLException e) {

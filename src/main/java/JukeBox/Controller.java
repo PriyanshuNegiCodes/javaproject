@@ -117,7 +117,7 @@ public class Controller {
 
                             playListID=sc.nextInt();
                             if(playlistUserLogImp.showLog(existingUserID).contains(playListID)){
-                                createPlaylist.InsertSongInPlaylist(playListID, existingUserID);
+                                createPlaylist.InsertSongInPlaylist(playListID);
                                 login=false;
                             }else if(playListID==0){
                                 login=false;

@@ -55,7 +55,7 @@ public class InsertSongsInCatalog extends CreatePlaylist {
             }
             System.out.println("Enter the name of the song");
             String SongName=sc.next();
-            String commonLocation="C:\\Users\\admin\\Desktop\\coding\\Java\\JavaProject\\"+SongName+".wav";
+            String commonLocation="C:\\Users\\admin\\IdeaProjects\\JavaProject\\src\\main\\resources\\"+SongName+".wav";
             long duration=timeOperations.calculateSongLength(commonLocation);
             commonLocation=commonLocation.replace("\\","/");
             Songs songs=new Songs(languageId, albumId, artistId, genreId, SongName, commonLocation, timeOperations.timer1(duration));

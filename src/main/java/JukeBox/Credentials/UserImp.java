@@ -41,7 +41,6 @@ public class UserImp extends Connector{
         return 0;
     }
     public String insertUser(List<User> insertData) {
-        UserImp userImp=new UserImp();
         try {
             for(User in: insertData){
                 st = getConnection().createStatement();

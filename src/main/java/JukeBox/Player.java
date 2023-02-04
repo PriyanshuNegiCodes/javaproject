@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Player extends TimeOperations {
     static PlayerInput playerInput= new PlayerInput();
+    static Controller controller=new Controller();
     int index = 0;
-//    static Player player=new Player();
     String input="";
     String Song;
     File file;
@@ -68,9 +68,9 @@ public class Player extends TimeOperations {
                         }
                         break;
                         case "U":
-                            clip.stop();
-                            clip.close();
                             if(list.size()>1){
+                                clip.stop();
+                                clip.close();
                                 if(index==0) {
                                     index=(list.size()-1);
                                 } else if (index > 0) {
@@ -78,7 +78,7 @@ public class Player extends TimeOperations {
                                 }
                                 playSong(list);
                             }else{
-                                playSong(list);
+                                System.out.println("Not reversible as only one song in the list");
                             }
                             break;
                         case "J":
@@ -93,20 +93,20 @@ public class Player extends TimeOperations {
                             if(list.size()>1){
                                 playerInput.songsSequence(list);
                             } else if (list.size()==1) {
-                                return "Player Closed";
+                                controller.mainReturnMethod();
+                                break;
                             }
                         }
+                        break;
                         default: {
                             if (input.equals("F")) {
                                 break;
-                            } else {
+                            }
+                            else {
                                 System.out.println("Invalid Response");
                             }
                         }
                     }
-//                    if(input.equals("X")&&list.size()==1){
-//                        return "Song Play Done";
-//                    }
                 }
                 clip.stop();
                 clip.close();

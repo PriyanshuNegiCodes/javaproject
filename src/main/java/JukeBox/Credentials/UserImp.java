@@ -25,20 +25,20 @@ public class UserImp extends Connector{
         credential.add(data);
         return credential;
     }
-    public boolean checkUser(int id, String userName, String Password) {
+    public int checkUser( String userName, String Password) {
          try {
             st=getConnection().createStatement();
             ResultSet resultSet=st.executeQuery("select * from users;");
             while(resultSet.next()){
-                if((resultSet.getInt(1)==id)&&(resultSet.getString(2).equals(userName))
+                if((resultSet.getString(2).equals(userName))
                         &&(resultSet.getString(3).equals(Password))){
-                    return true;
+                    return resultSet.getInt(1);
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return false;
+        return 0;
     }
     public String insertUser(List<User> insertData) {
         UserImp userImp=new UserImp();
@@ -51,23 +51,23 @@ public class UserImp extends Connector{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        System.out.println("+--------------------------------------------+");
-        System.out.println("+-------Wecome Your UserID is "+(userImp.findID())+"---------------+");
-        System.out.println("+--------------------------------------------+");
+//        System.out.println("+--------------------------------------------+");
+//        System.out.println("+-------Welcome Your UserID is "+(userImp.findID())+"---------------+");
+//        System.out.println("+--------------------------------------------+");
         return "Account Created";
     }
-    public int findID() {
-        int allocatedId=0;
-        try {
-            st=getConnection().createStatement();
-            ResultSet resultSet=st.executeQuery("select count(*) from users;");
-            while(resultSet.next()){
-                allocatedId=resultSet.getInt(1);
-                }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return allocatedId;
-    }
+//    public int findID() {
+//        int allocatedId=0;
+//        try {
+//            st=getConnection().createStatement();
+//            ResultSet resultSet=st.executeQuery("select count(*) from users;");
+//            while(resultSet.next()){
+//                allocatedId=resultSet.getInt(1);
+//                }
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return allocatedId;
+//    }
 }

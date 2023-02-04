@@ -96,18 +96,19 @@ public class PlayerInput extends CreatePlaylist{
             System.out.println("------------------------------------------------------------------------");
             obj.mainReturnMethod();
         }
-        if (list.size() == 1) {
-            System.out.println(player.playSong(list));
-            obj.mainReturnMethod();
-        }
+
         while (true) {
+            if (list.size() == 1) {
+                player.playSong(list);
+                obj.mainReturnMethod();
+            }
             System.out.println("1. Play in sequence\n2. Play in shuffle \n3. Return to Main Menu");
             int input = sc.nextInt();
             if (input == 1) {
-                System.out.println(player.playSong(list));
+                player.playSong(list);
             } else if (input == 2) {
                 Collections.shuffle(list);
-                System.out.println(player.playSong(list));
+                player.playSong(list);
             } else if (input==3){
                 obj.mainReturnMethod();
             } else{

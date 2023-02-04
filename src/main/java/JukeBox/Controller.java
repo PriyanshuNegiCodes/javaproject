@@ -24,19 +24,19 @@ public class Controller {
     static int existingUserID;
     static String adminid;
     static String key;
-    public void createAccount(){
+    public void createAccount()throws InputMismatchException{
         System.out.println(userImp.insertUser(userImp.createAccount())+ " Kindly Login with credentials");
         controller();
     }
-    public void mainReturnMethod(){
+    public void mainReturnMethod()throws InputMismatchException{
         if(existingUserID==0){
             obj.guestUser();
         }else {
             obj.existingUser();
         }
     }
-    public void guestUser(){
-        System.out.println("1. Play Song\n2. Create Account\nAny key Exit");
+    public void guestUser()throws InputMismatchException{
+        System.out.println("1. Play Song\n2. Create Account\nAny Key to Exit");
         int guest = sc.nextInt();
         switch (guest) {
             case 1:
@@ -57,12 +57,11 @@ public class Controller {
 
             case 2: obj.createAccount();
                 break;
-            case 3: break;
             default:
-                System.out.println("Visit Again");
+                System.exit(0);
         }
     }
-    public void existingUser( ){
+    public void existingUser( ) throws InputMismatchException{
         while (true){
             System.out.println("-------------------------------------------------");
             System.out.println("| Option | Description                        |");
@@ -160,7 +159,6 @@ public class Controller {
                 break;
             case 2: {
 
-
                 while (true){
                     System.out.println("1. Insert into album\n2. Insert into artist\n3. Insert into genre\n4. Insert into language" +
                             "\n5. Go to main Menu\n6. To exit ");
@@ -192,7 +190,7 @@ public class Controller {
             }
         }
     }
-        public  void controller(){
+        public  void controller()throws InputMismatchException{
             System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
             System.out.println("1. Guest User\n2. Existing User\n3. Admin Login\n Any key to exit");
             System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -202,19 +200,14 @@ public class Controller {
                     break;
                     case 2: {
                             while(login){
-                                System.out.println("Enter your User Id");
-                                existingUserID= sc.nextInt();
+
                                 System.out.println("Enter the User Name");
                                 String userName=sc.next();
                                 System.out.println("Enter the password");
                                 String password=sc.next();
-                                if(userImp.checkUser(existingUserID, userName, password)){
-                                    if(existingUserID!=0){
-                                        obj.existingUser();
-                                    }else {
-                                        System.out.println("TO ACCESS THIS MENU YOU HAVE TO CREATE ACCOUNT FIRST");
-                                        obj.createAccount();
-                                    }
+                                existingUserID=userImp.checkUser( userName, password);
+                                if(existingUserID>0){
+                                    obj.existingUser();
                                 }else {
                                     index++;
                                     System.out.println("Login Details are Wrong. You have "+ (3-index)+" attempts left");

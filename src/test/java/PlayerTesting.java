@@ -37,13 +37,13 @@ public class PlayerTesting {
     }
     @Test
     public void testCheckUser(){
-        boolean status=userImp.checkUser(1, "Priyanshu", "Negi");
-        Assert.assertTrue(status);
+        int status=userImp.checkUser("Priyanshu", "Negi");
+        Assert.assertEquals(status,1);
     }
     @Test
     public void testCheckUserFail(){
-        boolean status=userImp.checkUser(1, "Sameer", "Negi");
-        Assert.assertFalse(status);
+        int status=userImp.checkUser( "Sameer", "Negi");
+        Assert.assertEquals(status,1);
     }
     @Test
     public void userPlaylistSongsPass(){

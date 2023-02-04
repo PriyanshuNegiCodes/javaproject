@@ -14,6 +14,7 @@ public class TimeOperations {
         int seconds = (int) ((newTime % 60000) / 1000);
         return minutes+":"+String.format("%02d", seconds);
     }
+
     public String timer1(long time){
         long newTime = time/ 1000;
         int minutes = (int) (newTime / 60);

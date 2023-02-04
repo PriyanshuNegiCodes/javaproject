@@ -11,6 +11,7 @@ public class CreatePlaylist extends Connector {
     static PlaylistUserLogImp playlistUserLogImp = new PlaylistUserLogImp();
     static Statement st;
     static Scanner sc = new Scanner(System.in);
+    static CreatePlaylist createPlaylist=new CreatePlaylist();
     ResultSet resultSet;
     // Check if the playlist is there or not  with the help of play list id
     public String createPlaylist(int id) {
@@ -40,13 +41,16 @@ public class CreatePlaylist extends Connector {
         display.showCatalog();
         do {
             flag=true;
+
             while (flag){
                 System.out.println("Enter the song ID:");
                 songID= sc.nextInt();
                 if(!playlistUserLogImp.checkSongID(songID)){
-                    flag=false;
+                    if(createPlaylist.verifySongInPlaylist(playlistId,songID)){
+                        flag=false;
+                    }
                 }else {
-                    System.out.println("Id do not exists");
+                    System.out.println("Id do not exists or already there in the playlist ");
                 }
             }
             try {
@@ -59,5 +63,20 @@ public class CreatePlaylist extends Connector {
             System.out.println("Enter 1 if you want to insert other song else 0");
             input = sc.nextInt();
         } while (input == 1);
+    }
+    //Check if the song is there already in the catalog or not:
+    public boolean verifySongInPlaylist(int playlistId, int songId){
+        try {
+            st = getConnection().createStatement();
+            ResultSet resultSet=st.executeQuery("SELECT *FROM PLAYLIST WHERE PLAYLISTID ="+playlistId+" AND SONGID ="+songId+";");
+            while (resultSet.next()){
+                if((resultSet.getInt(2)==playlistId)&&(resultSet.getInt(3)==songId)){
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
     }
 }

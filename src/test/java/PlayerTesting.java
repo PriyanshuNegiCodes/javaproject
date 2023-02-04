@@ -1,5 +1,8 @@
 import JukeBox.Credentials.PlaylistUserLogImp;
 import JukeBox.Credentials.UserImp;
+import JukeBox.Player.TimeOperations;
+import JukeBox.Playlist.CreatePlaylist;
+import JukeBox.Playlist.Display;
 import JukeBox.Playlist.Music;
 import JukeBox.Playlist.PlayerInput;
 import org.junit.After;
@@ -14,13 +17,20 @@ public class PlayerTesting {
     UserImp userImp;
     PlaylistUserLogImp playlistUserLogImp;
     PlayerInput playerInput;
+    TimeOperations timeOperations;
     List<Music> list;
+    Display display;
+    CreatePlaylist createPlaylist;
+
     @Before
     public void setUp(){
         list=new ArrayList<>();
         userImp=new UserImp();
         playerInput=new PlayerInput();
         playlistUserLogImp=new PlaylistUserLogImp();
+        display=new Display();
+        timeOperations=new TimeOperations();
+        createPlaylist=new CreatePlaylist();
     }
     @After
     public void tearDown(){
@@ -28,24 +38,27 @@ public class PlayerTesting {
         userImp=null;
         playerInput=null;
         playlistUserLogImp=null;
+        display=null;
+        timeOperations=null;
+        createPlaylist=null;
     }
     @Test
     public void testCheckUser(){
         int status=userImp.checkUser("Priyanshu", "Negi");
-        Assert.assertEquals(status,1);
+        Assert.assertEquals(1,status);
     }
     @Test
     public void testCheckUserFail(){
         int status=userImp.checkUser( "Sameer", "Negi");
-        Assert.assertEquals(status,1);
+        Assert.assertEquals(0,status);
     }
     @Test
     public void userPlaylistSongsPass(){
         List<Music> list;
-        list=playerInput.userPlaylistSongs(2);
+        list=playerInput.userPlaylistSongs(5);
         String name="";
         for(Music in:list){
-            Assert.assertEquals("Stream", in.getSongName());
+            Assert.assertEquals("NamoNamo", in.getSongName());
         }
 
         for(Music in:list){
@@ -88,8 +101,8 @@ public class PlayerTesting {
     @Test
     public void getPlaylistNamePass(){
         Assert.assertTrue(playlistUserLogImp.getPlaylistName(1).contains("Play1"));
-        Assert.assertTrue(playlistUserLogImp.getPlaylistName(4).contains("TestPlayList"));
-        Assert.assertTrue(playlistUserLogImp.getPlaylistName(6).contains("YunusTest"));
+        Assert.assertTrue(playlistUserLogImp.getPlaylistName(5).contains("SameerPlay"));
+        Assert.assertTrue(playlistUserLogImp.getPlaylistName(3).contains("YunusTest"));
     }
     @Test
     public void getPlaylistNameFails(){
@@ -100,18 +113,53 @@ public class PlayerTesting {
     @Test
     public void checkSongIDPass(){
         //Return false if song is already there
-        Assert.assertFalse(playlistUserLogImp.checkSongID(11));
-        Assert.assertFalse(playlistUserLogImp.checkSongID(12));
-        Assert.assertFalse(playlistUserLogImp.checkSongID(13));
-        Assert.assertFalse(playlistUserLogImp.checkSongID(14));
-        Assert.assertFalse(playlistUserLogImp.checkSongID(15));
+        Assert.assertTrue(playlistUserLogImp.checkSongID(11));
+        Assert.assertTrue(playlistUserLogImp.checkSongID(12));
+        Assert.assertTrue(playlistUserLogImp.checkSongID(13));
+        Assert.assertTrue(playlistUserLogImp.checkSongID(14));
+        Assert.assertTrue(playlistUserLogImp.checkSongID(15));
     }
     @Test
     public void checkSongIDFail(){
         //Return false if song is already there
-        Assert.assertTrue(playlistUserLogImp.checkSongID(1));
-        Assert.assertTrue(playlistUserLogImp.checkSongID(2));
-        Assert.assertTrue(playlistUserLogImp.checkSongID(3));
-        Assert.assertTrue(playlistUserLogImp.checkSongID(4));
+        Assert.assertFalse(playlistUserLogImp.checkSongID(1));
+        Assert.assertFalse(playlistUserLogImp.checkSongID(2));
+        Assert.assertFalse(playlistUserLogImp.checkSongID(3));
+        Assert.assertFalse(playlistUserLogImp.checkSongID(4));
+    }
+    @Test
+    public void checkShowCatalogPass(){
+        list=display.showCatalog("Album", 4);
+        list.forEach(s->Assert.assertEquals("NamoNamo",list.get(0).getSongName()));
+        list=display.showCatalog("Artist", 1);
+        list.forEach(s->Assert.assertEquals("KedarNath",list.get(0).getSongName()));
+        list=display.showCatalog("Genre", 1);
+        list.forEach(s->Assert.assertEquals("Thunder",list.get(0).getSongName()));
+        list=display.showCatalog("Language", 1);
+        list.forEach(s->Assert.assertEquals("TeraFitoor",list.get(2).getSongName()));
+    }
+    @Test
+    public void checkShowCatalogFail(){
+        list=display.showCatalog("Album", 2);
+        list.forEach(s->Assert.assertNotEquals("NamoNamo",list.get(0).getSongName()));
+        list=display.showCatalog("Artist", 3);
+        list.forEach(s->Assert.assertNotEquals("KedarNath",list.get(0).getSongName()));
+        list=display.showCatalog("Genre", 2);
+        list.forEach(s->Assert.assertNotEquals("Thunder",list.get(0).getSongName()));
+        list=display.showCatalog("Language", 2);
+        list.forEach(s->Assert.assertNotEquals("TeraFitoor",list.get(2).getSongName()));
+    }
+    @Test
+    public void checktestTimePass() {
+        Assert.assertEquals("3:18",  timeOperations.timer(198000000));
+    }
+    @Test
+    public void checktestTimeFail() {
+        Assert.assertNotEquals("3:18",  timeOperations.timer(199000000));
+    }
+    @Test
+    public void checkVerifySongInPlaylist(){
+        Assert.assertFalse(createPlaylist.verifySongInPlaylist(2, 4));
+        Assert.assertTrue(createPlaylist.verifySongInPlaylist(4, 1));
     }
 }

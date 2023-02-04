@@ -1,6 +1,6 @@
 package JukeBox.Database;
 
-import JukeBox.CreatePlaylist;
+import JukeBox.Playlist.CreatePlaylist;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

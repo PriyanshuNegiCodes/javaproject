@@ -1,6 +1,8 @@
-package JukeBox;
+package JukeBox.Playlist;
 
 import JukeBox.Database.TablesImp;
+import JukeBox.Player.TimeOperations;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

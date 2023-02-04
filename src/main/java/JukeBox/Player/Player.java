@@ -1,4 +1,8 @@
-package JukeBox;
+package JukeBox.Player;
+import JukeBox.Controller;
+import JukeBox.Playlist.Music;
+import JukeBox.Playlist.PlayerInput;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;

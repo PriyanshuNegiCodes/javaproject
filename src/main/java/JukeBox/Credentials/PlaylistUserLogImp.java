@@ -1,5 +1,4 @@
 package JukeBox.Credentials;
-import JukeBox.Player;
 import JukeBox.connector.Connector;
 
 import java.sql.ResultSet;

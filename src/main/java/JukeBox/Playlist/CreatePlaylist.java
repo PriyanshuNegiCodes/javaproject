@@ -1,4 +1,4 @@
-package JukeBox;
+package JukeBox.Playlist;
 import JukeBox.Credentials.PlaylistUserLogImp;
 import JukeBox.connector.Connector;
 

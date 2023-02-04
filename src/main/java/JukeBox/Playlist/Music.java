@@ -1,4 +1,4 @@
-package JukeBox;
+package JukeBox.Playlist;
 
 public class Music {
     private int Sno;

@@ -1,18 +1,12 @@
 import JukeBox.Credentials.PlaylistUserLogImp;
 import JukeBox.Credentials.UserImp;
-import JukeBox.Music;
-import JukeBox.PlayerInput;
+import JukeBox.Playlist.Music;
+import JukeBox.Playlist.PlayerInput;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

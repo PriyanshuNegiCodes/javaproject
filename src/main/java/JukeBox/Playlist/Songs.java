@@ -1,4 +1,4 @@
-package JukeBox;
+package JukeBox.Playlist;
 
 public class Songs {
     private int languageId;

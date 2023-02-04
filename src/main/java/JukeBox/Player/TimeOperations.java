@@ -1,4 +1,4 @@
-package JukeBox;
+package JukeBox.Player;
 
 import javax.sound.sampled.*;
 import java.io.File;

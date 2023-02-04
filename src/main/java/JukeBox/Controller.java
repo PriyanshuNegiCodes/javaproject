@@ -2,6 +2,10 @@ package JukeBox;
 import JukeBox.Credentials.PlaylistUserLogImp;
 import JukeBox.Credentials.UserImp;
 import JukeBox.Database.TablesImp;
+import JukeBox.Playlist.CreatePlaylist;
+import JukeBox.Playlist.Display;
+import JukeBox.Playlist.InsertSongsInCatalog;
+import JukeBox.Playlist.PlayerInput;
 import JukeBox.admin.CredentialsValidatorImpl;
 
 import java.io.FileNotFoundException;

@@ -13,7 +13,7 @@ public class Player extends TimeOperations {
     String input="";
     String Song;
     File file;
-    public String playSong(List<Music> list) {
+    public void playSong(List<Music> list) {
 
         while (index < list.size()) {
 
@@ -120,6 +120,6 @@ public class Player extends TimeOperations {
                 playSong(list);
             }
         }
-        return "Player Closed";
+    
     }
 }

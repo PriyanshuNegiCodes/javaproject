@@ -113,6 +113,7 @@ public class PlayerInput extends CreatePlaylist{
                 obj.mainReturnMethod();
             } else{
             System.out.println("Invalid Input: Enter the input again");
+            break;
             }
         }
     }

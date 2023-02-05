@@ -146,7 +146,7 @@ public class Controller {
         }
     }
     static int adminInput;
-    public void admin(int value) throws FileNotFoundException {
+    public void admin(int value) throws FileNotFoundException, InputMismatchException {
         boolean flag=true;
         switch (value){
             case 1:

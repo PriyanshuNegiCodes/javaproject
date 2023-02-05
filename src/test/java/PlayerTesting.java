@@ -52,40 +52,35 @@ public class PlayerTesting {
         int status=userImp.checkUser( "Sameer", "Negi");
         Assert.assertEquals(0,status);
     }
+//    Is method extracting users playlists songs perfect ?
     @Test
     public void userPlaylistSongsPass(){
-       Assert.assertTrue(playerInput.userPlaylistSongs(2).get(0).getSongName().equals("KedarNath"));
-       Assert.assertTrue(playerInput.userPlaylistSongs(1).get(2).getSongName().equals("Thunder"));
+        Assert.assertEquals("KedarNath", playerInput.userPlaylistSongs(2).get(0).getSongName());
+        Assert.assertEquals("Thunder", playerInput.userPlaylistSongs(1).get(2).getSongName());
 
     }
     @Test
     public void userPlaylistSongsFail(){
-        Assert.assertFalse(playerInput.userPlaylistSongs(1).get(0).getSongName().equals("KedarNath"));
-        Assert.assertFalse(playerInput.userPlaylistSongs(2).get(2).getSongName().equals("Thunder"));
+        Assert.assertNotEquals("KedarNath", playerInput.userPlaylistSongs(1).get(0).getSongName());
+        Assert.assertNotEquals("Thunder", playerInput.userPlaylistSongs(2).get(2).getSongName());
 
     }
+//    Is catalog search working fine for initial letter of song ?
     @Test
     public void catalogFilterPass(){
-        list=playerInput.catalogFilter("Album", 4, "W");
-        list.forEach(in->Assert.assertNotNull(list));
-        list=playerInput.catalogFilter("Artist", 5, "B");
-        list.forEach(in->Assert.assertNotNull(list));
-        list=playerInput.catalogFilter("language", 2, "P");
-        list.forEach(in->Assert.assertNotNull(list));
-        list=playerInput.catalogFilter("Genre", 4, "W");
-        list.forEach(in->Assert.assertNotNull(list));
+        Assert.assertFalse(playerInput.catalogFilter("album", 5, "K").isEmpty());
+        Assert.assertFalse(playerInput.catalogFilter("language", 2, "F").isEmpty());
+        Assert.assertFalse(playerInput.catalogFilter("genre", 2, "G").isEmpty());
+        Assert.assertFalse(playerInput.catalogFilter("artist", 6, "B").isEmpty());
     }
     @Test
     public void catalogFilterFail(){
-        list=playerInput.catalogFilter("Album", 4, "P");
-        list.forEach(in->Assert.assertNull(list));
-        list=playerInput.catalogFilter("Artist", 6, "F");
-        list.forEach(in->Assert.assertNull(list));
-        list=playerInput.catalogFilter("language", 3, "P");
-        list.forEach(in->Assert.assertNull(list));
-        list=playerInput.catalogFilter("Genre", 4, "Z");
-        list.forEach(in->Assert.assertNull(list));
+        Assert.assertTrue(playerInput.catalogFilter("album", 1, "C").isEmpty());
+        Assert.assertTrue(playerInput.catalogFilter("language", 2, "Z").isEmpty());
+        Assert.assertTrue(playerInput.catalogFilter("genre", 2, "K").isEmpty());
+        Assert.assertTrue(playerInput.catalogFilter("artist", 6, "M").isEmpty());
     }
+    // Check is the song id is there in the catalog or not
     @Test
     public void checkSongIDFail(){
         //Return false if song is already there
@@ -103,6 +98,8 @@ public class PlayerTesting {
         Assert.assertFalse(playlistUserLogImp.checkSongID(3));
         Assert.assertFalse(playlistUserLogImp.checkSongID(4));
     }
+    // Check if the catalog is working fine for any category
+
     @Test
     public void checkShowCatalogPass(){
         list=display.showCatalog("Album", 4);
@@ -125,6 +122,7 @@ public class PlayerTesting {
         list=display.showCatalog("Language", 2);
         list.forEach(s->Assert.assertNotEquals("TeraFitoor",list.get(2).getSongName()));
     }
+    // Check if time calculator is working fine
     @Test
     public void checktestTimePass() {
         Assert.assertEquals("3:18",  timeOperations.timer(198000000));
@@ -133,9 +131,20 @@ public class PlayerTesting {
     public void checktestTimeFail() {
         Assert.assertNotEquals("3:18",  timeOperations.timer(199000000));
     }
+    // Check if the song is there in the playlist
     @Test
     public void checkVerifySongInPlaylist(){
         Assert.assertFalse(createPlaylist.verifySongInPlaylist(2, 4));
         Assert.assertTrue(createPlaylist.verifySongInPlaylist(4, 1));
+    }
+    @Test
+    public void checkLogDataFail(){
+        Assert.assertTrue(playlistUserLogImp.checkLogData("Hii", 1));
+        Assert.assertTrue(playlistUserLogImp.checkLogData("Hello", 2));
+    }
+    @Test
+    public void checkLogDataSuccess(){
+        Assert.assertFalse(playlistUserLogImp.checkLogData("Play1", 1));
+        Assert.assertFalse(playlistUserLogImp.checkLogData("Play2", 2));
     }
 }

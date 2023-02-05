@@ -8,19 +8,15 @@ import JukeBox.connector.Connector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 // Shuffle the song and give list input to the player
 public class PlayerInput extends Connector {
-    static Scanner sc=new Scanner(System.in);
-    Statement st;
-    static Controller obj=new Controller();
-    List<Music> listMusic=new ArrayList<>();
-    ResultSet resultSet;
+
+
     // this method will iterate the main catalog
     public List<Music> catalogFilter(String table, int id, String startsWith) {
+        List<Music> listMusic=new ArrayList<>();
         try {
             System.out.println("\033[31m" + "-------------------Your----------------------------Catalog-------------------------Search Result-------------------------------" + "\033[0m");
             System.out.println("+---------------------------------------------------------------------------------------------------------------------------------------------+");
@@ -29,8 +25,8 @@ public class PlayerInput extends Connector {
                      "SongName", " Duration(in min)");
             System.out.println("+---------------------------------------------------------------------------------------------------------------------------------------------+");
 
-            st=super.getConnection().createStatement();
-            resultSet=st.executeQuery("SELECT song.Sno, language.LanguageName, " +
+            Statement st=super.getConnection().createStatement();
+            ResultSet resultSet=st.executeQuery("SELECT song.Sno, language.LanguageName, " +
                     " artist.ArtistName , genre.GenreName, album.AlbumName, " +
                     "song.SongName, song.Path, song.Duration\n" +
                     "FROM song, language, album, artist, genre\n" +
@@ -63,13 +59,14 @@ public class PlayerInput extends Connector {
     }
 
     public List<Music> userPlaylistSongs(int playlistId){
+        List<Music> listMusic=new ArrayList<>();
         try {
             System.out.println("\033[31m" + "-------------------YOUR----------------------------SONG-------------------------PlAYLIST-------------------------------" + "\033[0m");
             System.out.println("+--------------------------------------------------------------------------------------------+");
             System.out.println("SongId  LanguageName ArtistName GenreName AlbumName SongName");
             System.out.println("+--------------------------------------------------------------------------------------------+");
-            st=super.getConnection().createStatement();
-            resultSet=st.executeQuery("SELECT Song.Sno, Language.LanguageName, Artist.ArtistName, Genre.GenreName, " +
+            Statement st=super.getConnection().createStatement();
+            ResultSet resultSet=st.executeQuery("SELECT Song.Sno, Language.LanguageName, Artist.ArtistName, Genre.GenreName, " +
                     "Album.AlbumName, Song.SongName, Song.Path, Song.Duration FROM Song, Language, Album, Artist, Genre, Playlist\n" +
                     "WHERE Song.LanguageID = Language.LanguageID AND Song.AlbumID = Album.AlbumID AND " +
                     "Song.ArtistID = Artist.ArtistID AND Song.GenreID = Genre.GenreID AND Song.Sno = Playlist.SongId " +
@@ -93,7 +90,8 @@ public class PlayerInput extends Connector {
         }
         return listMusic;
     }
-    public void songsSequence(List<Music>list) {
+    public void songsSequence(List<Music>list) throws InputMismatchException {
+        Controller obj=new Controller();
         Player player = new Player();
         Scanner sc = new Scanner(System.in);
         if (list.size() == 0) {
@@ -123,6 +121,8 @@ public class PlayerInput extends Connector {
         }
     }
     public void FilterSongMethod(){
+        Controller obj=new Controller();
+        Scanner sc=new Scanner(System.in);
         PlayerInput playerInput=new PlayerInput();
         TablesImp tablesImp=new TablesImp();
         Display display=new Display();

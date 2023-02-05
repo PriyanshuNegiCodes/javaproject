@@ -16,21 +16,21 @@ public class Controller {
     static Controller obj=new Controller();
     static PlayerInput playerInput=new PlayerInput();
     static TablesImp tables=new TablesImp();
-    static Scanner sc=new Scanner(System.in);
+    Scanner sc=new Scanner(System.in);
     static UserImp userImp=new UserImp();
     static Display display=new Display();
     static PlaylistUserLogImp playlistUserLogImp=new PlaylistUserLogImp();
     static CreatePlaylist createPlaylist = new CreatePlaylist();
     boolean login=true;
-    int index=0;
-    String temp="";
+    static int index=0;
+    static String temp="";
     static int value;
     static int existingUserID;
-    static String adminid;
-    static String key;
+    String adminid;
+    String key;
     public void createAccount()throws InputMismatchException{
         System.out.println(userImp.insertUser(userImp.createAccount())+ " Kindly Login with credentials");
-        controller();
+        System.exit(0);
     }
     public void mainReturnMethod()throws InputMismatchException{
         if(existingUserID==0){
@@ -44,7 +44,8 @@ public class Controller {
         int guest = sc.nextInt();
         switch (guest) {
             case 1:
-                System.out.println("1. Play all song from catalog\n2. Filter songs\n3. To return to main menu\n4. Any key for Logi Page");
+                System.out.println("1. Play all song from catalog\n2. Filter songs\n3. To return to main menu\n4. Any key for Login Page");
+
                 value=sc.nextInt();
                 switch (value){
                     case 1:playerInput.songsSequence(display.showCatalog());
@@ -145,10 +146,10 @@ public class Controller {
             }
         }
     }
-    static int adminInput;
-    public void admin(int value) throws FileNotFoundException, InputMismatchException {
+
+    public void admin(int adminloginINput) throws FileNotFoundException, InputMismatchException {
         boolean flag=true;
-        switch (value){
+        switch (adminloginINput){
             case 1:
                 tables.showDetailsTable("artist");
                 tables.showDetailsTable("album");
@@ -167,10 +168,10 @@ public class Controller {
                             "2. Insert into artist\n" +
                             "3. Insert into genre\n" +
                             "4. Insert into language\n"+
-                            "5. Go to main menu");
+                            "5. To exit");
                     temp="";
-                    adminInput = sc.nextInt();
-                    switch (adminInput) {
+                    int input = sc.nextInt();
+                    switch (input) {
                         case 1:
                             temp = temp.concat("album");
                             break;
@@ -183,12 +184,11 @@ public class Controller {
                         case 4:
                             temp = temp.concat("language");
                             break;
-                        case 5: {
-                            flag=false;
-                            obj.controller();
-                        }
+                        case 5: System.exit(0);
+                            break;
                         default:{
                             flag=false;
+                            obj.admin(adminloginINput);
                         }
                     }
                     tables.showDetailsTable(temp);
@@ -246,9 +246,9 @@ public class Controller {
                             System.out.println("| 2      | Insert new data in Album, Artist   |");
                             System.out.println("|          Genre, Language                    |");
                             System.out.println("-------------------------------------------------");
-                            adminInput = sc.nextInt();
+                            int adminloginINput = sc.nextInt();
                             try{
-                                obj.admin(sc.nextInt());
+                                obj.admin(adminloginINput);
                             } catch (FileNotFoundException x) {
                                 System.out.println("File was not found");
                             } catch (RuntimeException x) {

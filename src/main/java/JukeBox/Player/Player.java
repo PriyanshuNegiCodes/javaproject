@@ -94,12 +94,15 @@ public class Player extends TimeOperations {
                         case "X": {
                             clip.stop();
                             clip.close();
-                            if(list.size()>1){
-                                playerInput.songsSequence(list);
-                            } else if (list.size()==1) {
-                                controller.mainReturnMethod();
-                                break;
-                            }
+//                            index=0;
+//                            if(list.size()>1){
+//                                playerInput.songsSequence(list);
+//                            } else if (list.size()==1) {
+//                                controller.mainReturnMethod();
+//                                break;
+//                            }
+                            controller.mainReturnMethod();
+
                         }
                         break;
                         default: {

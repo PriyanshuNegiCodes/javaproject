@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Display extends Connector {
-    static Statement st;
+
     public List<Music> showCatalog(){
         List<Music> musicList=new ArrayList<>();
         try {
-            st=getConnection().createStatement();
+            Statement st=getConnection().createStatement();
             ResultSet resultSet=st.executeQuery("SELECT Song.Sno, Language.LanguageName, " +
                     "Artist.ArtistName, Genre.GenreName, \n" +
                     "Album.AlbumName, Song.SongName, Song.Path, Song.Duration\n" +
@@ -44,7 +44,7 @@ public class Display extends Connector {
     public List<Music> showCatalog(String name, int id){
         List<Music> musicList=new ArrayList<>();
         try {
-            st=getConnection().createStatement();
+            Statement st=getConnection().createStatement();
             ResultSet resultSet=st.executeQuery("SELECT Song.Sno, Language.LanguageName, " +
                     "Artist.ArtistName, Genre.GenreName, \n" +
                     "Album.AlbumName, Song.SongName, Song.Path, Song.Duration\n" +

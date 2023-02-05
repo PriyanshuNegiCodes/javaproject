@@ -44,7 +44,7 @@ public class Controller {
         int guest = sc.nextInt();
         switch (guest) {
             case 1:
-                System.out.println("1. Play all song from catalog\n2. Filter songs\n3. To return to main menu\nAny key to exit");
+                System.out.println("1. Play all song from catalog\n2. Filter songs\n3. To return to main menu\n4. Any key for Logi Page");
                 value=sc.nextInt();
                 switch (value){
                     case 1:playerInput.songsSequence(display.showCatalog());
@@ -58,14 +58,13 @@ public class Controller {
                         }
                     }
                     break;
-
             case 2: obj.createAccount();
                 break;
             default:
-                System.exit(0);
+                obj.controller();
         }
     }
-    public void existingUser( ) throws InputMismatchException{
+    public void existingUser() throws InputMismatchException{
         while (true){
             System.out.println("-------------------------------------------------");
             System.out.println("| Option | Description                        |");
@@ -117,7 +116,6 @@ public class Controller {
                             System.out.println("Enter the play list Id in which " +
                                     "you want to insert the songs\nFor Exit press 0");
                             System.out.println("=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_");
-
                             playListID=sc.nextInt();
                             if(playlistUserLogImp.showLog(existingUserID).contains(playListID)){
                                 createPlaylist.InsertSongInPlaylist(playListID);
@@ -139,7 +137,7 @@ public class Controller {
                     break;
                 case 6:
                     System.out.println("Thanks for visiting");
-                    System.exit(0);
+                    obj.controller();
                     break;
                 default: {
                     System.out.println("entered input is wrong");
@@ -148,8 +146,9 @@ public class Controller {
         }
     }
     static int adminInput;
-    public void admin() throws FileNotFoundException {
-        switch (adminInput){
+    public void admin(int value) throws FileNotFoundException {
+        boolean flag=true;
+        switch (value){
             case 1:
                 tables.showDetailsTable("artist");
                 tables.showDetailsTable("album");
@@ -163,9 +162,12 @@ public class Controller {
                 break;
             case 2: {
 
-                while (true){
-                    System.out.println("1. Insert into album\n2. Insert into artist\n3. Insert into genre\n4. Insert into language" +
-                            "\n5. Go to main Menu\n6. To exit ");
+                while (flag){
+                    System.out.println("1. Insert into album\n" +
+                            "2. Insert into artist\n" +
+                            "3. Insert into genre\n" +
+                            "4. Insert into language\n"+
+                            "5. Go to main menu");
                     temp="";
                     adminInput = sc.nextInt();
                     switch (adminInput) {
@@ -181,16 +183,23 @@ public class Controller {
                         case 4:
                             temp = temp.concat("language");
                             break;
-                        case 5:obj.admin();
-                        break;
-                        case 6: System.exit(0);
-                        default:
-                            System.out.println("invalid input for the table selection");
+                        case 5: {
+                            flag=false;
+                            obj.controller();
+                        }
+                        default:{
+                            flag=false;
+                        }
                     }
                     tables.showDetailsTable(temp);
                     System.out.println( tables.Table(temp));
                     tables.showDetailsTable(temp);
+                    }
                 }
+                break;
+            case 3:{
+                System.out.println("Wrong input redirecting to login page");
+                obj.controller();
             }
         }
     }
@@ -209,6 +218,7 @@ public class Controller {
                                 String userName=sc.next();
                                 System.out.println("Enter the password");
                                 String password=sc.next();
+                                existingUserID=0;
                                 existingUserID=userImp.checkUser( userName, password);
                                 if(existingUserID>0){
                                     obj.existingUser();
@@ -223,22 +233,22 @@ public class Controller {
                             }
                         }
                 case 3:{
-                    System.out.println("-------------------------------------------------");
-                    System.out.println("| Option | Description                        |");
-                    System.out.println("| 1      | Insert song in the catalog         |");
-                    System.out.println("| 2      | Insert new data in Album, Artist   |");
-                    System.out.println("|          Genre, Language                    |");
-                    System.out.println("| Press any number for Main Menu              |");
-                    System.out.println("-------------------------------------------------");
-                    adminInput = sc.nextInt();
-                    CredentialsValidatorImpl credentialsValidator=new CredentialsValidatorImpl();
+
                     System.out.println("Enter the adminID");
                         adminid=sc.next();
                         System.out.println("Enter the password");
                         key= sc.next();
+                    CredentialsValidatorImpl credentialsValidator=new CredentialsValidatorImpl();
                         if(credentialsValidator.validateUser(adminid, key)){
+                            System.out.println("-------------------------------------------------");
+                            System.out.println("| Option | Description                        |");
+                            System.out.println("| 1      | Insert song in the catalog         |");
+                            System.out.println("| 2      | Insert new data in Album, Artist   |");
+                            System.out.println("|          Genre, Language                    |");
+                            System.out.println("-------------------------------------------------");
+                            adminInput = sc.nextInt();
                             try{
-                                obj.admin();
+                                obj.admin(sc.nextInt());
                             } catch (FileNotFoundException x) {
                                 System.out.println("File was not found");
                             } catch (RuntimeException x) {
@@ -253,7 +263,7 @@ public class Controller {
                         }
                     }
                 break;
-                case 4: System.exit(1);
+                case 4: System.exit(0);
                 break;
                 default:{
                     System.out.println("Thanks for visiting Happy Listening");

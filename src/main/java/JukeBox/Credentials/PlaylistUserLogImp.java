@@ -31,8 +31,6 @@ public class PlaylistUserLogImp extends  Connector {
 
     //Method to display the playlist id and Names;
     public void displayLog(int userId){
-        List<Integer> playlistIdData=new ArrayList<>();
-        //Method to get the Name of the playlist
         try {
             st=super.getConnection().createStatement();
             resultSet= st.executeQuery("select *from Log where userid="+userId+";");
@@ -50,14 +48,13 @@ public class PlaylistUserLogImp extends  Connector {
             throw new RuntimeException(e);
         }
     }
-
-
-    public boolean checkLogData( String tableName) {
+    //Method to check if the table already exist in the database or not
+    public boolean checkLogData( String tableName, int id) {
         try {
             st=super.getConnection().createStatement();
-            resultSet=st.executeQuery("select* from Log;");
+            resultSet=st.executeQuery("select* from Log where userid="+id+";");
             while(resultSet.next()){
-                if(resultSet.getString(2).equalsIgnoreCase(tableName)){
+                if(resultSet.getString(2).equalsIgnoreCase(tableName)&&resultSet.getInt(3)==id){
                     return false;
                 }
             }
@@ -66,22 +63,23 @@ public class PlaylistUserLogImp extends  Connector {
         }
         return true;
     }
-    public String getPlaylistName(int id) {
 
-        String tableName="";
-        try {
-            st=super.getConnection().createStatement();
-            resultSet=st.executeQuery("select* from Log;");
-            while(resultSet.next()){
-                if(resultSet.getInt(1)==id){
-                    return resultSet.getString(2);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return tableName;
-    }
+//    public String getPlaylistName(int id) {
+//
+//        String tableName="";
+//        try {
+//            st=super.getConnection().createStatement();
+//            resultSet=st.executeQuery("select* from Log;");
+//            while(resultSet.next()){
+//                if(resultSet.getInt(1)==id){
+//                    return resultSet.getString(2);
+//                }
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return tableName;
+//    }
     //TESTING PURPOSE CODE TO ITERATE THE TABLE OF SONG
     public boolean checkSongID(int Id) {
         try {

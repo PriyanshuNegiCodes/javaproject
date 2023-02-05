@@ -146,7 +146,10 @@ public class PlayerInput extends CreatePlaylist {
         tablesImp.showDetailsTable(temp);
         System.out.println("Enter the id as per which you want to filter");
         int filterId= sc.nextInt();
-        tablesImp.checkData(filterId, temp);
+        while (tablesImp.checkData(filterId, temp)){
+            System.out.println("Entered ID do not exist please try again:");
+            filterId=sc.nextInt();
+        }
         display.showCatalog(temp, filterId);
         System.out.println("Enter the first character of the song to filter the data:");
         String firstInitial=sc.next();

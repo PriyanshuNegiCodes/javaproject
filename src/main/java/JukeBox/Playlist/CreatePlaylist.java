@@ -12,15 +12,14 @@ public class CreatePlaylist extends Connector {
     static Statement st;
     static Scanner sc = new Scanner(System.in);
     static CreatePlaylist createPlaylist=new CreatePlaylist();
-    ResultSet resultSet;
-    // Check if the playlist is there or not  with the help of play list id
+    //create playlist of the user
     public String createPlaylist(int id) {
-//        playlistUserLogImp.displayLog(id);
         System.out.println("Enter the name of the Playlist:");
         String playList = sc.next();
-        while (!playlistUserLogImp.checkLogData(playList)) {
+        // check if the playlist with the same name is already there for the given user
+        while (!playlistUserLogImp.checkLogData(playList, id)) {
+            System.out.println("The playlist with the name "+playList+" already exists. Enter the name again");
             playList="";
-            System.out.println("The playlist with the name "+playList+" already exists");
             playList = sc.next();
         }
         try {
@@ -32,7 +31,7 @@ public class CreatePlaylist extends Connector {
         return playList;
     }
 
-    //   insert data into the play list
+    //   insert data into the play list ie, songId and the playlistId
     public void InsertSongInPlaylist(int playlistId) {
         int songID=0;
         boolean flag;
@@ -41,7 +40,7 @@ public class CreatePlaylist extends Connector {
         display.showCatalog();
         do {
             flag=true;
-
+            //Check if the song Id is already there or Not in the playlist
             while (flag){
                 System.out.println("Enter the song ID:");
                 songID= sc.nextInt();

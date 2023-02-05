@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class TablesImp extends CreatePlaylist {
     static Scanner sc=new Scanner(System.in);
     Statement st;
+    //display the table
     public void showDetailsTable(String table){
           try {
               st=super.getConnection().createStatement();
@@ -25,6 +26,7 @@ public class TablesImp extends CreatePlaylist {
         }
         System.out.println("____________________________");
     }
+    //insert data in the table
     public String Table(String tableName){
         System.out.println("Enter the id:");
         int id=sc.nextInt();
@@ -41,6 +43,7 @@ public class TablesImp extends CreatePlaylist {
         }
         return "Data verified from the table "+tableName+"";
     }
+//check if  id and name is exists in the category table before inserting them in the catalog
     public boolean checkData(int id, String tableName) {
         try {
             st=super.getConnection().createStatement();

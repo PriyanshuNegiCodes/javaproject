@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class UserImp extends Connector{
     static List<User> credential=new ArrayList<>();
-//    static Connector connector=new Connector();
     static Statement st;
+    //Create the account of new user;
     public List<User> createAccount(){
         Scanner sc= new Scanner(System.in);
         System.out.println("{{][}}{{][}}{{][}}{{][}}{{][}}{{][}}{{][}}{{][}}{{][}}{{][}}{{][}}{{][}}");
@@ -25,6 +25,7 @@ public class UserImp extends Connector{
         credential.add(data);
         return credential;
     }
+    //Check if the user is there in the database or not;
     public int checkUser( String userName, String Password) {
          try {
             st=getConnection().createStatement();
@@ -33,6 +34,7 @@ public class UserImp extends Connector{
                 if((resultSet.getString(2).equals(userName))
                         &&(resultSet.getString(3).equals(Password))){
                     return resultSet.getInt(1);
+
                 }
             }
         } catch (SQLException e) {
@@ -40,6 +42,8 @@ public class UserImp extends Connector{
         }
         return 0;
     }
+
+    //Insert the data of the new user in the playlist
     public String insertUser(List<User> insertData) {
         try {
             for(User in: insertData){
@@ -50,23 +54,7 @@ public class UserImp extends Connector{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-//        System.out.println("+--------------------------------------------+");
-//        System.out.println("+-------Welcome Your UserID is "+(userImp.findID())+"---------------+");
-//        System.out.println("+--------------------------------------------+");
         return "Account Created";
     }
-//    public int findID() {
-//        int allocatedId=0;
-//        try {
-//            st=getConnection().createStatement();
-//            ResultSet resultSet=st.executeQuery("select count(*) from users;");
-//            while(resultSet.next()){
-//                allocatedId=resultSet.getInt(1);
-//                }
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return allocatedId;
-//    }
+
 }

@@ -61,7 +61,7 @@ public class Controller {
             case 2: obj.createAccount();
                 break;
             default:
-                obj.controller();
+                System.exit(0);
         }
     }
     public void existingUser() throws InputMismatchException{
@@ -198,8 +198,8 @@ public class Controller {
                 }
                 break;
             case 3:{
-                System.out.println("Wrong input redirecting to login page");
-                obj.controller();
+                System.out.println("Wrong input!! Unauthorized login... Exiting");
+                System.exit(0);
             }
         }
     }

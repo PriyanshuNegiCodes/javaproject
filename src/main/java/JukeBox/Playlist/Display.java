@@ -1,11 +1,15 @@
 package JukeBox.Playlist;
 
+import JukeBox.connector.Connector;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Display extends CreatePlaylist {
+public class Display extends Connector {
+    static Statement st;
     public List<Music> showCatalog(){
         List<Music> musicList=new ArrayList<>();
         try {

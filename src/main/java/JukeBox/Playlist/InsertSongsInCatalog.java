@@ -2,16 +2,18 @@ package JukeBox.Playlist;
 
 import JukeBox.Database.TablesImp;
 import JukeBox.Player.TimeOperations;
+import JukeBox.connector.Connector;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 /// Insert the song in the catalog from this class
-public class InsertSongsInCatalog extends CreatePlaylist {
+public class InsertSongsInCatalog extends Connector {
     Scanner sc = new Scanner(System.in);
     TablesImp tablesImp=new TablesImp();
-
+    static Statement st;
     public String insertSongs(List<Songs> songsList) {
         try {
             st = getConnection().createStatement();

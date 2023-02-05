@@ -3,15 +3,19 @@ package JukeBox.Playlist;
 import JukeBox.Controller;
 import JukeBox.Database.TablesImp;
 import JukeBox.Player.Player;
+import JukeBox.connector.Connector;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 // Shuffle the song and give list input to the player
-public class PlayerInput extends CreatePlaylist {
+public class PlayerInput extends Connector {
+    static Scanner sc=new Scanner(System.in);
+    Statement st;
     static Controller obj=new Controller();
     List<Music> listMusic=new ArrayList<>();
     ResultSet resultSet;

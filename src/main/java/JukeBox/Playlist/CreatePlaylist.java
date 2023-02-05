@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class CreatePlaylist extends Connector {
     static PlaylistUserLogImp playlistUserLogImp = new PlaylistUserLogImp();
     static Statement st;
+     
     static Scanner sc = new Scanner(System.in);
     static CreatePlaylist createPlaylist=new CreatePlaylist();
     //create playlist of the user

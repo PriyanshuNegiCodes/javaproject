@@ -1,13 +1,13 @@
 package JukeBox.Database;
 
-import JukeBox.Playlist.CreatePlaylist;
+import JukeBox.connector.Connector;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 //This table is for inserting data in the table of langauge,album, artist, genre and verifiying from it as well
-public class TablesImp extends CreatePlaylist {
+public class TablesImp extends Connector {
     static Scanner sc=new Scanner(System.in);
     Statement st;
     //display the table

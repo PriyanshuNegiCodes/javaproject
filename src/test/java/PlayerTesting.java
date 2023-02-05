@@ -54,27 +54,15 @@ public class PlayerTesting {
     }
     @Test
     public void userPlaylistSongsPass(){
-        List<Music> list;
-        list=playerInput.userPlaylistSongs(5);
-        String name="";
-        for(Music in:list){
-            Assert.assertEquals("NamoNamo", in.getSongName());
-        }
+       Assert.assertTrue(playerInput.userPlaylistSongs(2).get(0).getSongName().equals("KedarNath"));
+       Assert.assertTrue(playerInput.userPlaylistSongs(1).get(2).getSongName().equals("Thunder"));
 
-        for(Music in:list){
-            if(in.getSongName().contains("Waves")){
-                name=name.concat(in.getSongName());
-                Assert.assertEquals("Waves", name);
-            }
-        }
     }
     @Test
     public void userPlaylistSongsFail(){
-        List<Music> list;
-        list=playerInput.userPlaylistSongs(1);
-        list.forEach(in->Assert.assertFalse(in.getSongName().contains("Mirage")));
-        list=playerInput.userPlaylistSongs(2);
-        list.forEach(in->Assert.assertFalse(in.getSongName().contains("Mirage")));
+        Assert.assertFalse(playerInput.userPlaylistSongs(1).get(0).getSongName().equals("KedarNath"));
+        Assert.assertFalse(playerInput.userPlaylistSongs(2).get(2).getSongName().equals("Thunder"));
+
     }
     @Test
     public void catalogFilterPass(){
@@ -99,19 +87,7 @@ public class PlayerTesting {
         list.forEach(in->Assert.assertNull(list));
     }
     @Test
-    public void getPlaylistNamePass(){
-        Assert.assertTrue(playlistUserLogImp.getPlaylistName(1).contains("Play1"));
-        Assert.assertTrue(playlistUserLogImp.getPlaylistName(5).contains("SameerPlay"));
-        Assert.assertTrue(playlistUserLogImp.getPlaylistName(3).contains("YunusTest"));
-    }
-    @Test
-    public void getPlaylistNameFails(){
-        Assert.assertFalse(playlistUserLogImp.getPlaylistName(1).contains("Name1"));
-        Assert.assertFalse(playlistUserLogImp.getPlaylistName(4).contains("Name2"));
-        Assert.assertFalse(playlistUserLogImp.getPlaylistName(4).contains("Name3"));
-    }
-    @Test
-    public void checkSongIDPass(){
+    public void checkSongIDFail(){
         //Return false if song is already there
         Assert.assertTrue(playlistUserLogImp.checkSongID(11));
         Assert.assertTrue(playlistUserLogImp.checkSongID(12));
@@ -120,7 +96,7 @@ public class PlayerTesting {
         Assert.assertTrue(playlistUserLogImp.checkSongID(15));
     }
     @Test
-    public void checkSongIDFail(){
+    public void checkSongIDPass(){
         //Return false if song is already there
         Assert.assertFalse(playlistUserLogImp.checkSongID(1));
         Assert.assertFalse(playlistUserLogImp.checkSongID(2));

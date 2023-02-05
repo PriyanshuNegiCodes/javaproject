@@ -137,7 +137,7 @@ public class Controller {
                     break;
                 case 6:
                     System.out.println("Thanks for visiting");
-                    obj.controller();
+                    System.exit(0);
                     break;
                 default: {
                     System.out.println("entered input is wrong");

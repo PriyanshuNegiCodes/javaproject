@@ -64,22 +64,6 @@ public class PlaylistUserLogImp extends  Connector {
         return true;
     }
 
-//    public String getPlaylistName(int id) {
-//
-//        String tableName="";
-//        try {
-//            st=super.getConnection().createStatement();
-//            resultSet=st.executeQuery("select* from Log;");
-//            while(resultSet.next()){
-//                if(resultSet.getInt(1)==id){
-//                    return resultSet.getString(2);
-//                }
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return tableName;
-//    }
     //TESTING PURPOSE CODE TO ITERATE THE TABLE OF SONG
     public boolean checkSongID(int Id) {
         try {

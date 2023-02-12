@@ -21,51 +21,51 @@ public class Controller {
     static Display display=new Display();
     static PlaylistUserLogImp playlistUserLogImp=new PlaylistUserLogImp();
     static CreatePlaylist createPlaylist = new CreatePlaylist();
-    boolean login=true;
-    static int index=0;
-    static String temp="";
-    static int value;
-    static int existingUserID;
-    String adminid;
-    String key;
+//    boolean login=true;
+//    static int index=0;
+//    static String temp="";
+//    static int value;
+//    int existingUserID;
+//    String adminid;
+//    String key;
     public void createAccount()throws InputMismatchException{
         System.out.println(userImp.insertUser(userImp.createAccount())+ " Kindly Login with credentials");
-        System.exit(0);
+        obj.controller();
     }
-    public void mainReturnMethod()throws InputMismatchException{
-        if(existingUserID==0){
+    public void mainReturnMethod(int input)throws InputMismatchException{
+        if(input==0){
             obj.guestUser();
         }else {
-            obj.existingUser();
+            obj.existingUser(input);
         }
     }
     public void guestUser()throws InputMismatchException{
-        System.out.println("1. Play Song\n2. Create Account\nAny Key to Exit");
+        System.out.println("1. Play Song\n2. Create Account\n3. Exit");
         int guest = sc.nextInt();
         switch (guest) {
             case 1:
                 System.out.println("1. Play all song from catalog\n2. Filter songs\n3. To return to main menu\n4. Any key for Login Page");
-
-                value=sc.nextInt();
+                int existingUserID=0;
+                int value=sc.nextInt();
                 switch (value){
-                    case 1:playerInput.songsSequence(display.showCatalog());
+                    case 1:playerInput.songsSequence(display.showCatalog(), existingUserID);
                         break;
-                    case 2:playerInput.FilterSongMethod();
+                    case 2:playerInput.FilterSongMethod(existingUserID);
                     break;
                     case 3: obj.guestUser();
                     break;
                     default:{
-                        System.out.println("Thanks for visiting");
+                        obj.controller();
                         }
                     }
                     break;
             case 2: obj.createAccount();
                 break;
-            default:
-                System.exit(0);
+            case 3:
+                obj.controller();
         }
     }
-    public void existingUser() throws InputMismatchException{
+    public void existingUser(int existingUserID) throws InputMismatchException{
         while (true){
             System.out.println("-------------------------------------------------");
             System.out.println("| Option | Description                        |");
@@ -75,10 +75,10 @@ public class Controller {
             System.out.println("| 3      | Insert Song in Playlist            |");
             System.out.println("| 4      | Play songs from catalog            |");
             System.out.println("| 5      | Search Song in Catalog             |");
-            System.out.println("| 6      | Exit the app                       |");
+            System.out.println("| 6      | Logout                             |");
             System.out.println("-------------------------------------------------");
             int input = sc.nextInt();
-            temp="";
+            String temp="";
             switch (input) {
                 case 1:
                     temp=temp.concat(createPlaylist.createPlaylist(existingUserID));
@@ -87,7 +87,7 @@ public class Controller {
                 case 2:
                     if(!playlistUserLogImp.showLog(existingUserID).isEmpty()){
                         playlistUserLogImp.displayLog(existingUserID);
-                        login=true;
+//                        boolean login=true;
                         while (true){
                             System.out.println("(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)");
                             System.out.println("Enter the playlist Id you want to hear songs from\n"+
@@ -95,9 +95,9 @@ public class Controller {
                             System.out.println("(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)(+)");
                             int playListId= sc.nextInt();
                             if(playlistUserLogImp.showLog(existingUserID).contains(playListId)){
-                                playerInput.songsSequence(playerInput.userPlaylistSongs(playListId));
+                                playerInput.songsSequence(playerInput.userPlaylistSongs(playListId), existingUserID);
                             }else if(playListId==0){
-                                obj.existingUser();
+                                obj.existingUser(existingUserID);
                             } else {
                                 System.out.println("You entered the wrong input: Try again");
                             }
@@ -109,7 +109,7 @@ public class Controller {
                 case 3:
                     display.showCatalog();
                     if(!playlistUserLogImp.showLog(existingUserID).isEmpty()){
-                        login=true;
+                        boolean login=true;
                         int playListID;
                         while (login){
                             playlistUserLogImp.displayLog(existingUserID);
@@ -132,13 +132,13 @@ public class Controller {
                     }
                     break;
                 case 4:
-                    playerInput.songsSequence(display.showCatalog());
+                    playerInput.songsSequence(display.showCatalog(), existingUserID);
                     break;
-                case 5:playerInput.FilterSongMethod();
+                case 5:playerInput.FilterSongMethod(existingUserID);
                     break;
                 case 6:
                     System.out.println("Thanks for visiting");
-                    System.exit(0);
+                    obj.controller();
                     break;
                 default: {
                     System.out.println("entered input is wrong");
@@ -158,7 +158,7 @@ public class Controller {
                 System.out.println("KINDLY ENTER THE ID'S FROM EXISTING DATABASE OF " +
                         "ALBUM, ARTIST, LANGUAGE, GENRE");
                 InsertSongsInCatalog insertSongs=new InsertSongsInCatalog();
-                System.out.println(insertSongs.insertSongs(insertSongs.insertSong()));//Add song to the database of catalog;
+                System.out.println(insertSongs.insertSong());//Add song to the database of catalog;
 
                 break;
             case 2: {
@@ -169,7 +169,7 @@ public class Controller {
                             "3. Insert into genre\n" +
                             "4. Insert into language\n"+
                             "5. To exit");
-                    temp="";
+                    String temp="";
                     int input = sc.nextInt();
                     switch (input) {
                         case 1:
@@ -198,6 +198,10 @@ public class Controller {
                 }
                 break;
             case 3:{
+                obj.controller();
+            }
+            break;
+            default:{
                 System.out.println("Wrong input!! Unauthorized login... Exiting");
                 System.exit(0);
             }
@@ -208,6 +212,8 @@ public class Controller {
             System.out.println("1. Guest User\n2. Existing User\n3. Admin Login\n Any key to exit");
             System.out.println("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
             int level=sc.nextInt();
+            int index=0;
+            boolean login=true;
                 switch (level) {
                     case 1: obj.guestUser();
                     break;
@@ -218,10 +224,9 @@ public class Controller {
                                 String userName=sc.next();
                                 System.out.println("Enter the password");
                                 String password=sc.next();
-                                existingUserID=0;
-                                existingUserID=userImp.checkUser( userName, password);
+                                int existingUserID=userImp.checkUser( userName, password);
                                 if(existingUserID>0){
-                                    obj.existingUser();
+                                    obj.existingUser(existingUserID);
                                 }else {
                                     index++;
                                     System.out.println("Login Details are Wrong. You have "+ (3-index)+" attempts left");
@@ -235,9 +240,9 @@ public class Controller {
                 case 3:{
 
                     System.out.println("Enter the adminID");
-                        adminid=sc.next();
+                        String adminid=sc.next();
                         System.out.println("Enter the password");
-                        key= sc.next();
+                        String key= sc.next();
                     CredentialsValidatorImpl credentialsValidator=new CredentialsValidatorImpl();
                         if(credentialsValidator.validateUser(adminid, key)){
                             System.out.println("-------------------------------------------------");
@@ -245,6 +250,7 @@ public class Controller {
                             System.out.println("| 1      | Insert song in the catalog         |");
                             System.out.println("| 2      | Insert new data in Album, Artist   |");
                             System.out.println("|          Genre, Language                    |");
+                            System.out.println("| 3      | Logout                             |");
                             System.out.println("-------------------------------------------------");
                             int adminloginINput = sc.nextInt();
                             try{
@@ -263,10 +269,13 @@ public class Controller {
                         }
                     }
                 break;
-                case 4: System.exit(0);
+                case 4:
+                    System.exit(0);
+
                 break;
                 default:{
                     System.out.println("Thanks for visiting Happy Listening");
+                    System.exit(0);
                 }
         }
     }

@@ -90,7 +90,7 @@ public class PlayerInput extends Connector {
         }
         return listMusic;
     }
-    public void songsSequence(List<Music>list) throws InputMismatchException {
+    public void songsSequence(List<Music> list, int userId) throws InputMismatchException {
         Controller obj=new Controller();
         Player player = new Player();
         Scanner sc = new Scanner(System.in);
@@ -98,29 +98,29 @@ public class PlayerInput extends Connector {
             System.out.println("------------------------------------------------------------------------");
             System.out.println("Error!! you do not have any song in the playlist, kindly add the songs first");
             System.out.println("------------------------------------------------------------------------");
-            obj.mainReturnMethod();
+            obj.mainReturnMethod(userId);
         }
 
         while (true) {
             if (list.size() == 1) {
-                player.playSong(list);
-                obj.mainReturnMethod();
+                player.playSong(list, userId);
+                obj.mainReturnMethod(userId);
             }
             System.out.println("1. Play in sequence\n2. Play in shuffle \n3. Return to Main Menu");
             int input = sc.nextInt();
             if (input == 1) {
-                player.playSong(list);
+                player.playSong(list, userId);
             } else if (input == 2) {
                 Collections.shuffle(list);
-                player.playSong(list);
+                player.playSong(list, userId);
             } else if (input==3){
-                obj.mainReturnMethod();
+                obj.mainReturnMethod(userId);
             } else{
             System.out.println("Invalid Input: Enter the input again");
             }
         }
     }
-    public void FilterSongMethod(){
+    public void FilterSongMethod(int userId){
         Controller obj=new Controller();
         Scanner sc=new Scanner(System.in);
         PlayerInput playerInput=new PlayerInput();
@@ -143,7 +143,7 @@ public class PlayerInput extends Connector {
             case 4:
                 temp = temp.concat("language");
                 break;
-            case 5: obj.mainReturnMethod();
+            case 5: obj.mainReturnMethod(userId);
             default:
                 System.out.println("invalid input for the table selection");
         }
@@ -157,7 +157,7 @@ public class PlayerInput extends Connector {
         display.showCatalog(temp, filterId);
         System.out.println("Enter the first character of the song to filter the data:");
         String firstInitial=sc.next();
-        playerInput.songsSequence(playerInput.catalogFilter(temp, filterId, firstInitial));
+        playerInput.songsSequence(playerInput.catalogFilter(temp, filterId, firstInitial), userId);
     }
 
 }

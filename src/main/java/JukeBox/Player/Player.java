@@ -17,7 +17,7 @@ public class Player extends TimeOperations {
     String input="";
     String Song;
     File file;
-    public void playSong(List<Music> list) {
+    public void playSong(List<Music> list, int userId) {
 
         while (index < list.size()) {
 
@@ -80,7 +80,7 @@ public class Player extends TimeOperations {
                                 } else if (index > 0) {
                                     index--;
                                 }
-                                playSong(list);
+                                playSong(list, userId);
                             }else{
                                 System.out.println("Not reversible as only one song in the list");
                             }
@@ -101,7 +101,7 @@ public class Player extends TimeOperations {
 //                                controller.mainReturnMethod();
 //                                break;
 //                            }
-                            controller.mainReturnMethod();
+                            controller.mainReturnMethod(userId);
 
                         }
                         break;
@@ -124,7 +124,7 @@ public class Player extends TimeOperations {
 
             if(index==(list.size())){
                 index=0;
-                playSong(list);
+                playSong(list, userId);
             }
         }
     
